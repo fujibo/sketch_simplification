@@ -32,6 +32,9 @@ if use_cuda:
    pred = model.cuda().forward( data.cuda() ).float()
 else:
    pred = model.forward( data )
-save_image( pred[0], opt.out )
 
-
+if ph != 0:
+    pred = pred[:, :, :-ph, :]
+if pw != 0:
+    pred = pred[:, :, :, :-pw]
+save_image(pred[0], opt.out )
